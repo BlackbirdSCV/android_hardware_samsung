@@ -26,7 +26,8 @@ ndk::ScopedAStatus HalProxySamsung::getSensorsList(
         }
 
         if (dst.typeAsString == "com.samsung.sensor.physical_proximity" ||
-            dst.typeAsString == "com.samsung.sensor.hover_proximity") {
+            dst.typeAsString == "com.samsung.sensor.hover_proximity" ||
+            dst.typeAsString == "com.samsung.sensor.touch_proximity") {
             ALOGI("Fixing %s", dst.typeAsString.c_str());
             dst.type = ::android::hardware::sensors::V2_1::SensorType::PROXIMITY;
             dst.typeAsString = SENSOR_STRING_TYPE_PROXIMITY;
