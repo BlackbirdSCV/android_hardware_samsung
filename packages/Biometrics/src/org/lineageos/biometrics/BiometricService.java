@@ -641,7 +641,7 @@ public class BiometricService extends Service
         return Settings.Secure.getIntForUser(
                 getContentResolver(),
                 SETTING_SCREEN_OFF_UDFPS,
-                0 /* default off */,
+                1 /* default on, matches config_screen_off_udfps_default_on */,
                 UserHandle.USER_CURRENT) != 0;
     }
 
