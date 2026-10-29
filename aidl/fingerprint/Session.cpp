@@ -12,6 +12,7 @@
 #include <fingerprint.sysprop.h>
 
 #include <android-base/logging.h>
+#include <android-base/properties.h>
 #include <cutils/properties.h>
 
 #include <dirent.h>
@@ -117,6 +118,10 @@ ndk::ScopedAStatus Session::detectInteraction(std::shared_ptr<ICancellationSigna
 
 ndk::ScopedAStatus Session::enumerateEnrollments() {
     LOG(INFO) << "enumerateEnrollments";
+    
+    if (!::android::base::WaitForProperty("sys.boot_completed", "1", 30s)) {
+        LOG(WARNING) << "Timed out waiting for boot completion, enumerating anyway";
+    }
 
     if (mHal.ss_fingerprint_enumerate) {
         int32_t error = mHal.ss_fingerprint_enumerate();
